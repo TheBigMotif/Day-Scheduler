@@ -3,16 +3,27 @@
 // in the html.
 
 
-let currentDay = document.getElementById('currentDay');
-currentDay.innerHTML = dayjs().format('MMMM D, YYYY');
 
 
 
 $(function () {
-  let save = document.querySelector('.btn')
-  save.addEventListener('click', function(){
+  
+  let currentDay = document.getElementById('currentDay');
+  currentDay.innerHTML = dayjs().format('MMMM D, YYYY');
+  const time = $(this).parent().attr("id");
+  const input = $(this).siblings("textarea").val();
+
+  
+  let save = $(".btn")
+  localStorage.getItem(time, input);
+  save.on('click', function(){
     console.log("hi")
+    
+    localStorage.setItem(time, input);
+    
   })
+  }
+)
 
   
   // TODO: Add a listener for click events on the save button. This code should
@@ -33,4 +44,4 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
