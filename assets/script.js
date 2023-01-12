@@ -2,46 +2,63 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-
-
-
-
 $(function () {
-  
-  let currentDay = document.getElementById('currentDay');
-  currentDay.innerHTML = dayjs().format('MMMM D, YYYY');
-  const time = $(this).parent().attr("id");
-  const input = $(this).siblings("textarea").val();
-
-  
-  let save = $(".btn")
-  localStorage.getItem(time, input);
-  save.on('click', function(){
-    console.log("hi")
-    
+  let currentDay = document.getElementById("currentDay");
+  currentDay.innerHTML = dayjs().format("MMMM D, YYYY");
+  let save = $(".btn");
+  let currentHour = dayjs().format("HH");
+  save.on("click", function () {
+    let time = $(this).parent().attr("id");
+    let input = $(this).siblings("textarea").val();
     localStorage.setItem(time, input);
-    
-  })
-  }
-)
+    console.log("yoi");
+  });
 
-  
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+  $(".time-block").each(function () {
+    var blockTime = $(this).attr("id");
 
+    if (currentHour == blockTime) {
+      $(this).removeClass("past");
+      $(this).addClass("present");
+      $(this).removeClass("future");
+    } else if (currentHour > blockTime) {
+      $(this).addClass("past");
+      $(this).removeClass("present");
+      $(this).removeClass("future");
+    } else if (currentHour < blockTime) {
+      $(this).removeClass("past");
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    }
+
+    // loop over time blocks
+
+    $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+    $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+    $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+    $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+    $("#hour-1 .description").val(localStorage.getItem("hour-1"));
+    $("#hour-2 .description").val(localStorage.getItem("hour-2"));
+    $("#hour-3 .description").val(localStorage.getItem("hour-3"));
+    $("#hour-4 .description").val(localStorage.getItem("hour-4"));
+    $("#hour-5 .description").val(localStorage.getItem("hour-5"));
+  });
+});
+// TODO: Add a listener for click events on the save button. This code should
+// use the id in the containing time-block as a key to save the user input in
+// local storage. HINT: What does `this` reference in the click listener
+// function? How can DOM traversal be used to get the "hour-x" id of the
+// time-block containing the button that was clicked? How might the id be
+// useful when saving the description in local storage?
+//
+// TODO: Add code to apply the past, present, or future class to each time
+// block by comparing the id to the current hour. HINTS: How can the id
+// attribute of each time-block be used to conditionally add or remove the
+// past, present, and future classes? How can Day.js be used to get the
+// current hour in 24-hour time?
+//
+// TODO: Add code to get any user input that was saved in localStorage and set
+// the values of the corresponding textarea elements. HINT: How can the id
+// attribute of each time-block be used to do this?
+//
+// TODO: Add code to display the current date in the header of the page.
