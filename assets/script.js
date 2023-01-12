@@ -4,7 +4,7 @@
 
 $(function () {
   let currentDay = document.getElementById("currentDay");
-  currentDay.innerHTML = dayjs().format("MMMM D, YYYY");
+  currentDay.innerHTML = dayjs().format("MMMM D, YYYY"); // Injects current date into the html
   let save = $(".btn");
   let currentHour = dayjs().format("HH");
   save.on("click", function () {
@@ -15,7 +15,7 @@ $(function () {
   });
 
   $(".time-block").each(function () {
-    var blockTime = $(this).attr("id");
+    let blockTime = $(this).attr("id");
 
     if (currentHour == blockTime) {
       $(this).removeClass("past");
@@ -31,8 +31,7 @@ $(function () {
       $(this).addClass("future");
     }
 
-    // loop over time blocks
-
+    // Shows the stored values into the text area using localStorage
     $("#hour-9 .description").val(localStorage.getItem("hour-9"));
     $("#hour-10 .description").val(localStorage.getItem("hour-10"));
     $("#hour-11 .description").val(localStorage.getItem("hour-11"));
